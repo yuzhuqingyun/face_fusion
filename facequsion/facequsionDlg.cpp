@@ -67,6 +67,8 @@ BEGIN_MESSAGE_MAP(CfacequsionDlg, CDialog)
 	//}}AFX_MSG_MAP
 	ON_BN_CLICKED(IDC_BUTTON2, &CfacequsionDlg::OnBnClickedButton2)
 	ON_BN_CLICKED(IDC_BUTTON1, &CfacequsionDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON_IMAGE1, &CfacequsionDlg::OnBnClickedButtonImage1)
+	ON_BN_CLICKED(IDC_BUTTON_IMAGE2, &CfacequsionDlg::OnBnClickedButtonImage2)
 END_MESSAGE_MAP()
 
 
@@ -159,8 +161,22 @@ HCURSOR CfacequsionDlg::OnQueryDragIcon()
 void CfacequsionDlg::OnBnClickedButton2()
 {
 	// TODO: 在此添加控件通知处理程序代码
-		Mat l8u = imread("cola1.bmp");
-	Mat r8u = imread("cola2.bmp");
+	//Mat l8u = imread("cola1.bmp");
+	//Mat r8u = imread("cola2.bmp");
+	if (cstrimagePath1.IsEmpty())
+	{
+		cstrimagePath1 = "cola1.bmp";
+	} 
+	if (cstrimagePath2.IsEmpty())
+	{
+		cstrimagePath2 = "cola2.bmp";
+	} 
+	CStringA _cstrimagePath1(cstrimagePath1.GetBuffer(0));
+	cstrimagePath1.ReleaseBuffer();
+	CStringA _cstrimagePath2(cstrimagePath2.GetBuffer(0));
+	cstrimagePath2.ReleaseBuffer();
+	Mat l8u = imread(_cstrimagePath1.GetString(), 1);
+	Mat r8u = imread(_cstrimagePath2.GetString(), 1);
 
 	imshow("left",l8u); 
 	imshow("right",r8u);
@@ -191,9 +207,42 @@ void CfacequsionDlg::OnBnClickedButton1()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	// load source image
-	Mat src_img_1 = imread("cola1.bmp", IMREAD_GRAYSCALE);
-	Mat src_img_2 = imread("cola2.bmp", IMREAD_GRAYSCALE);
+	if (cstrimagePath1.IsEmpty())
+	{
+		cstrimagePath1 = "cola1.bmp";
+	} 
+	if (cstrimagePath2.IsEmpty())
+	{
+		cstrimagePath2 = "cola2.bmp";
+	} 
+	CStringA _cstrimagePath1(cstrimagePath1.GetBuffer(0));
+	cstrimagePath1.ReleaseBuffer();
+	CStringA _cstrimagePath2(cstrimagePath2.GetBuffer(0));
+	cstrimagePath2.ReleaseBuffer();
+	Mat src_img_1 = imread(_cstrimagePath1.GetString(), IMREAD_GRAYSCALE);
+	Mat src_img_2 = imread(_cstrimagePath2.GetString(), IMREAD_GRAYSCALE);
 	Mat greaterPixels = FusionGreaterPixel(src_img_1, src_img_2);
 	Mat averagePixels = FusionAveragePixel(src_img_1, src_img_2);
 
+}
+
+void CfacequsionDlg::OnBnClickedButtonImage1()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CFileDialog dlg(TRUE);
+	if (dlg.DoModal() == IDOK)
+	{
+		cstrimagePath1 = dlg.GetPathName();
+	}
+
+}
+
+void CfacequsionDlg::OnBnClickedButtonImage2()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CFileDialog dlg(TRUE);
+	if (dlg.DoModal() == IDOK)
+	{
+		cstrimagePath2 = dlg.GetPathName();
+	}
 }

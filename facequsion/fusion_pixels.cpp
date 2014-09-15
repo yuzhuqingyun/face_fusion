@@ -81,10 +81,10 @@ Mat FusionGreaterPixel(Mat src_img_1, Mat src_img_2)
 		ptrSrc1++;
 		ptrSrc2++;
 	}
-	imshow("src1", src_img_1);
-	imshow("src2", src_img_2);
-	imshow("dst2", dst_img_2);	//取较大值
-	imshow("result", compare_result);
+	imshow("取较大:src1", src_img_1);
+	imshow("取较大:src2", src_img_2);
+	imshow("取较大:dst2", dst_img_2);	//取较大值
+	imshow("取较大:result", compare_result);
 	waitKey();
 	destroyAllWindows();
 
@@ -153,10 +153,10 @@ Mat FusionAveragePixel(Mat src_img_1, Mat src_img_2)
 		ptr2++;
 		ptr++;
 	}
-	imshow("src1", src_img_1);
-	imshow("src2", src_img_2);
-	imshow("dst1", dst_img_1);	//取平均
-	imshow("result", compare_result);
+	imshow("平均:src1", src_img_1);
+	imshow("平均:src2", src_img_2);
+	imshow("平均:dst1", dst_img_1);	//取平均
+	imshow("平均:result", compare_result);
 	waitKey();
 	destroyAllWindows();
 
